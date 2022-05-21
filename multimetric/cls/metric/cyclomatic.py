@@ -14,16 +14,11 @@ class MetricBaseCyclomaticComplexity(MetricBase):
 
     __conditions = [
         "if",
-        "else",
         "elif",
         "case",
         "default",
         "for",
-        "while",
-        "and",
-        "or",
-        "&&",
-        "||"
+        "while"
     ]
 
     METRIC_CYCLOMATIC_COMPLEXITY = "cyclomatic_complexity"
@@ -43,5 +38,5 @@ class MetricBaseCyclomaticComplexity(MetricBase):
 
     def get_results(self):
         self._metrics[MetricBaseCyclomaticComplexity.METRIC_CYCLOMATIC_COMPLEXITY] = max(
-            self.__conditions - self.__exitpoints + 2, 0)
+            self.__conditions + 1, 0)
         return self._metrics

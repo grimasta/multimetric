@@ -21,7 +21,7 @@ class MetricBaseComments(MetricBase):
 
     def __init__(self, args, **kwargs):
         super().__init__(args, **kwargs)
-        self.__overall = 0
+        self.__overall = 1
         self.__comments = 0
 
     def parse_tokens(self, language, tokens):
@@ -30,9 +30,12 @@ class MetricBaseComments(MetricBase):
         if language in MetricBaseComments._specific:
             _n += MetricBaseComments._specific[language]
         for x in tokens:
-            self.__overall += len(str(x[1]))
+            self.__overall += sum([1 for x in x[1] if x == '\n'])
+            # len(str(x[1]))
             if str(x[0]) in _n:
-                self.__comments += len(str(x[1]))
+                self.__comments += sum([1 for x in x[1] if x == '\n'])
+                if str(x[0]) == "Token.Comment.Multiline":
+                    self.__comments += 1
 
     def get_results(self):
         if self.__overall == 0:

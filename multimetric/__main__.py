@@ -135,6 +135,8 @@ def main():
     with mp.Pool(processes=_args.jobs) as pool:
         results = [pool.apply(file_process, args=(
             f, _args, _importer)) for f in _args.files]
+        # for result in results:
+            # print("result", result)
 
     for x in results:
         _result["files"][x[1]] = x[0]
